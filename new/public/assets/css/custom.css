@@ -1,0 +1,21 @@
+.table-sm-custom td,
+.table-sm-custom th {
+    padding: 0.4rem 0.4rem;
+}
+
+.toast-notif {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    min-width: 250px;
+    z-index: 9999;
+    padding: 16px 24px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    opacity: 0.95;
+    transition: opacity 0.5s;
+}
+.toast-success { background: #28a745; }
+.toast-error   { background: #dc3545; }
