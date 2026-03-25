@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL', '/template_app/new/public');
+define('BASE_URL', '/app/public');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_template');
 define('DB_USER', 'root');
