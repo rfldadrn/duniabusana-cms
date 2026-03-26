@@ -5,9 +5,9 @@
         public static function connect() {
             if (!self::$conn) {
                 self::$conn = mysqli_connect(
-                    'localhost',
-                    'root',
-                    '',
+                    DB_HOST,
+                    DB_USER,
+                    DB_PASS,
                     DB_NAME
                 );
                 if (!self::$conn) {
