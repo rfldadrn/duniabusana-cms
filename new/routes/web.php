@@ -28,6 +28,21 @@ $router->post('customer/store', 'CustomerController@store');
 $router->get('customer/edit/:id', 'CustomerController@edit');
 $router->post('customer/update', 'CustomerController@update');
 $router->get('customer/delete/:id', 'CustomerController@delete');
+$router->post('customer/addSize', 'CustomerController@addAndUpdateSize');
+$router->get('customer/deleteSize/:id/:customerId', 'CustomerController@deleteSize');
+
+//Transaction
+$router->get('transactions', 'TransactionController@index');
+$router->get('transaction/create', 'TransactionController@create');
+$router->post('transaction/store', 'TransactionController@store');
+$router->get('transaction/edit/:id', 'TransactionController@edit');
+$router->post('transaction/update', 'TransactionController@update');
+$router->get('transaction/delete/:id', 'TransactionController@delete');
+
+//API - Transaction
+$router->get('api/get-size-properties', 'TransactionController@getSizeProperties');
+$router->get('api/get-size-details', 'CustomerController@getSizeDetail');
+$router->get('api/get-customerSizeByCustomerId/:customerId/:headerSizeId/:itemId', 'CustomerController@getAllSizes');
 
 //Dashboard
 $router->get('', 'DashboardController@index');

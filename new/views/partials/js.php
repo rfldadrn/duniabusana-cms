@@ -21,83 +21,25 @@
 <script src="<?php echo BASE_URL; ?>/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
 <script src="<?php echo BASE_URL; ?>/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
 <script src="<?php echo BASE_URL; ?>/assets/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="<?= BASE_URL ?>/assets/plugins/tinymce/tinymce.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js"></script>
 <!-- Alert -->
 <!-- <script src="<?php echo BASE_URL; ?>/assets/plugins/alert.js"></script> -->
-<script>
-	$(function() {
-		$("#example1").DataTable();
-		$('#example2').DataTable({
-			"paging": true,
-			"lengthChange": false,
-			"searching": false,
-			"ordering": true,
-			"info": true,	
-			"autoWidth": false,
-		});
-	});
-</script>
 
+<script src="<?php echo BASE_URL; ?>/assets/js/customJS/common.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/customJS/size.js"></script>
+<script type="text/javascript" src="<?= BASE_URL ?>/assets/js/customJS/transaction.js"></script>
 <script>
-	$(function() {
-		//Initialize Select2 Elements
-		$('.select2').select2()
-
-		//Initialize Select2 Elements
-		$('.select2bs4').select2({
-			theme: 'bootstrap4'
-		})
-	})
-</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var notif = document.querySelectorAll('.toast-notif');
-	console.log(notif);
-    notif.forEach(function(el) {
-        setTimeout(function() {
-            el.style.opacity = '0';
-            setTimeout(function() {
-                el.style.display = 'none';
-            }, 500);
-        }, 3500);
-    });
-});
-</script>
-
-<script>
-// SweetAlert Delete Confirmation
-function confirmDelete(url, title = 'Data') {
-	event.preventDefault();
-    Swal.fire({
-        title: 'Hapus Data?',
-        text: `Apakah Anda yakin ingin menghapus ${title} ini?`,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: '<i class="fas fa-trash"></i> Ya, Hapus!',
-        cancelButtonText: '<i class="fas fa-times"></i> Batal',
-        reverseButtons: true,
-        focusCancel: true
-    }).then((result) => {
-		console.log(result);
-        if (result.isConfirmed) {
-            // Show loading
-            Swal.fire({
-                title: 'Menghapus...',
-                text: 'Mohon tunggu sebentar',
-                allowOutsideClick: false,
-                allowEscapeKey: false,
-                didOpen: () => {
-                    Swal.showLoading();
-                }
-            });
-            
-            // Redirect to delete URL
-            window.location.href = url;
-        }
-    });
-    
-    return false;
-}
+    const BASE_URL = "<?php echo BASE_URL; ?>";
+    if (typeof tinymce !== 'undefined' && document.getElementById('note-richtext')) {
+        tinymce.init({
+            selector: "#note-richtext",
+            height: 300,
+            menubar: false,
+            readonly: false,
+            plugins: "lists link table code",
+            toolbar: "undo redo | bold italic underline | bullist numlist | link | code"
+        });
+    }
 </script>

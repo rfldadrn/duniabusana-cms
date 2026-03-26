@@ -29,5 +29,9 @@ class Model {
     protected function escape($value) {
         return mysqli_real_escape_string($this->db, $value);
     }
+
+    protected function getLastInsertId() {
+        return mysqli_insert_id($this->db);
+    }
 }
 ?>
