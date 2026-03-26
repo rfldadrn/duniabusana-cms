@@ -15,9 +15,9 @@ class Transaction extends Model{
                                     c.Name AS CustomerName,
                                     c.PhoneNumber AS CustomerPhone,
                                     IFNULL(a.Name, 'Pribadi') AS AgencyName
-                                FROM Transactions t
-                                INNER JOIN Customers c ON t.CustomerId = c.Id
-                                LEFT JOIN Agencies a ON t.AgencyId = a.Id
+                                FROM transactions t
+                                INNER JOIN customers c ON t.CustomerId = c.Id
+                                LEFT JOIN agencies a ON t.AgencyId = a.Id
                                 WHERE t.RowStatus = 1
                                 ORDER BY t.Id DESC
                             ");
