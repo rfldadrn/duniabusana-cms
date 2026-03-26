@@ -146,8 +146,8 @@ class Customer extends Model
         $headerSizeCustomerId = (int) $headerSizeCustomerId;
         $sql = "SELECT hsc.Id AS HeaderSizeCustomerId, hsc.Note, isc.ItemSizeId, isc.Size, isz.ItemId, i.Name as ItemName, isz.Name as SizeName, isz.isMandatory
                 FROM headersizecustomer hsc
-					 JOIN itemSizeCustomer isc ON isc.HeaderSizeCustomerId = hsc.Id
-                JOIN itemSize isz ON isc.itemSizeId = isz.Id
+					 JOIN itemsizecustomer isc ON isc.HeaderSizeCustomerId = hsc.Id
+                JOIN itemsize isz ON isc.itemSizeId = isz.Id
                 JOIN items i ON isz.ItemId = i.Id
                 WHERE hsc.customerId = $customerId AND hsc.rowstatus = 1 AND isz.rowstatus = 1 AND isc.rowstatus = 1";
 
@@ -165,8 +165,8 @@ class Customer extends Model
     public function test($customerId, $headerSizeCustomerId = null, $itemId = null){
         $sql = "SELECT hsc.Id AS HeaderSizeCustomerId, hsc.Note, isc.ItemSizeId, isc.Size, isz.ItemId, i.Name as ItemName, isz.Name as SizeName, isz.isMandatory
                 FROM headersizecustomer hsc
-					 JOIN itemSizeCustomer isc ON isc.HeaderSizeCustomerId = hsc.Id
-                JOIN itemSize isz ON isc.itemSizeId = isz.Id
+					 JOIN itemsizecustomer isc ON isc.HeaderSizeCustomerId = hsc.Id
+                JOIN itemsize isz ON isc.itemSizeId = isz.Id
                 JOIN items i ON isz.ItemId = i.Id
                 WHERE hsc.rowstatus = 1 AND isz.rowstatus = 1 AND isc.rowstatus = 1";
         $result = $this->query($sql);

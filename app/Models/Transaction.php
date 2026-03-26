@@ -51,7 +51,7 @@ class Transaction extends Model{
         try {
             $stmt = $this->query("
                 SELECT TransactionCode 
-                FROM Transactions 
+                FROM transactions 
                 WHERE LEFT(TransactionCode, 6) = '$prefix'
                 ORDER BY TransactionCode DESC
                 LIMIT 1

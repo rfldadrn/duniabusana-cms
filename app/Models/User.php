@@ -6,7 +6,7 @@ class User extends Model
 {
     public function all()
     {
-        $result = $this->query("SELECT users.id, users.nama_pengguna, users.username, users.rolesId, users.password, roles.RoleName
+        $result = $this->query("SELECT users.id, users.nama_pengguna, users.username, users.rolesId, users.password, roles.rolename
                                 FROM users JOIN roles ON users.rolesId = roles.id 
                                 WHERE users.rowstatus = 1 AND roles.rowstatus = 1");
         return $this->fetchAll($result);
