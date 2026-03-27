@@ -6,7 +6,7 @@ define('ALTERNATE_BASE_URL',
     isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
         'https://' : 
         'http://' . $_SERVER['HTTP_HOST']);
-define('BASE_PATH','/Template_App/new/public');
+define('BASE_PATH','/app/public');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_template');
 define('DB_USER', 'admindubus');
