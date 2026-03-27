@@ -15,21 +15,21 @@
 		<div class="card-body">
 			<input type="text" class="form-control" id="Id" name="Id" value="<?= $user['Id'] ?? '' ?>" hidden>
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Nama User</label>
+				<label class="col-sm-2 col-form-label required-label">Nama User</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="nama_pengguna" name="Nama_pengguna" placeholder="Nama user" required value="<?= $user['Nama_pengguna'] ?>">
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Username</label>
+				<label class="col-sm-2 col-form-label required-label">Username</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="username" name="Username" placeholder="Username" required value="<?= $user['Username'] ?>">
 				</div>
 			</div>
 			
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Role User</label>
+				<label class="col-sm-2 col-form-label required-label">Role User</label>
 				<div class="col-sm-4">
 					<select name="RolesId" id="level" class="form-control" required>
 					<option value="">Pilih Role</option>

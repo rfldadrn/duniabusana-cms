@@ -3,15 +3,19 @@ require_once __DIR__ . '/../Core/Controller.php';
 require_once __DIR__ . '/../Models/Customer.php';
 require_once __DIR__ . '/../Core/Auth.php';
 require_once __DIR__ . '/../Models/Item.php';
+require_once __DIR__ . '/../Models/DropdownMapping.php';
+
 class CustomerController extends Controller
 {
     private $customerModel;
     private $itemModel;
+    private $dropdownMappingModel;
 
     public function __construct()
     {
         $this->customerModel = new Customer();
         $this->itemModel = new Item();
+        $this->dropdownMappingModel = new DropdownMapping();
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -37,9 +41,10 @@ class CustomerController extends Controller
         $customer = [
             'Nama_customer' => '',
             'Alamat' => '',
-            'No_telepon' => ''
+            'No_telepon' => '',
         ];
-        $this->view('customer/detail', compact('customer'));
+        $agencies = $this->dropdownMappingModel->getAllAgencies();
+        $this->view('customer/detail', compact('customer', 'agencies'));
     }
 
     /* =======================
@@ -50,6 +55,7 @@ class CustomerController extends Controller
         $nama_customer = $_POST['Nama_pelanggan'] ?? '';
         $gender = $_POST['Gender'] ?? '';
         $nomor_telp = $_POST['Nomor_telp'] ?? '';
+        $agencyId = $_POST['Instansi'] ?? '';
 
 
 
@@ -118,9 +124,9 @@ class CustomerController extends Controller
 
         // reset index array
         $sizeCustomer = array_values($result);
-        
+        $agencies = $this->dropdownMappingModel->getAllAgencies();
         $items = $this->itemModel->all();
-        $this->view('customer/detail', compact('customer', 'items', 'sizeCustomer'));
+        $this->view('customer/detail', compact('customer', 'items', 'sizeCustomer', 'agencies'));
     }
     public function getSizeDetail()
     {

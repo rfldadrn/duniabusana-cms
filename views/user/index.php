@@ -45,7 +45,7 @@
 								<?php echo $data['username']; ?>
 							</td>
 							<td>
-								<?php echo $data['RoleName']; ?>
+								<?php echo $data['rolename']; ?>
 							</td>
 							<td class="text-center">
 								<a href="<?= BASE_URL ?>/user/edit/<?= $data['id']; ?>" title="Ubah" class="btn btn-outline-success btn-sm">

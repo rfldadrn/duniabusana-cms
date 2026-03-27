@@ -6,7 +6,7 @@ class Customer extends Model
 {
     public function all()
     {
-        $result = $this->query("SELECT * FROM customers WHERE rowstatus = 1");
+        $result = $this->query("SELECT c.*, a.Name AS AgencyName FROM customers c LEFT JOIN agencies a ON c.agencyId = a.Id WHERE c.rowstatus = 1");
         return $this->fetchAll($result);
     }
 
@@ -22,11 +22,12 @@ class Customer extends Model
         $nama_customer = $this->escape($data['Nama_pelanggan']);
         $gender = $this->escape($data['Gender']);
         $no_telepon = $this->escape($data['Nomor_telp']);
+        $agencyId = $data['Instansi'] ? (int)$data['Instansi'] : 'NULL';
         $rowstatus = 1;
         $created_at = date('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO customers (name, gender, phoneNumber, rowstatus, created_at)
-                VALUES ('$nama_customer', '$gender', '$no_telepon', '$rowstatus', '$created_at')";
+        $sql = "INSERT INTO customers (name, gender, phoneNumber, agencyId, rowstatus, created_at)
+                VALUES ('$nama_customer', '$gender', '$no_telepon', $agencyId, '$rowstatus', '$created_at')";
 
         $this->query($sql);
         return $this->db->insert_id;
@@ -38,12 +39,14 @@ class Customer extends Model
         $nama_customer = $this->escape($data['Nama_pelanggan']);
         $gender = $this->escape($data['Gender']);
         $no_telepon = $this->escape($data['Nomor_telp']);
+        $agencyId = $data['Instansi'] ? (int)$data['Instansi'] : 'NULL';
         $updated_at = date('Y-m-d H:i:s');
 
         $sql = "UPDATE customers SET
                 name='$nama_customer',
                 gender='$gender',
                 phoneNumber='$no_telepon',
+                agencyId=$agencyId,
                 updated_at='$updated_at'
                 WHERE id=$id";
 

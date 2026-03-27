@@ -39,6 +39,13 @@ $router->get('transaction/edit/:id', 'TransactionController@edit');
 $router->post('transaction/update', 'TransactionController@update');
 $router->get('transaction/delete/:id', 'TransactionController@delete');
 
+//Agency
+$router->get('agencies', 'AgencyController@index');
+$router->get('agency/create', 'AgencyController@create');
+$router->post('agency/store', 'AgencyController@store');
+$router->get('agency/edit/:id', 'AgencyController@edit');
+$router->post('agency/update', 'AgencyController@update');
+
 //API - Transaction
 $router->get('api/get-size-properties', 'TransactionController@getSizeProperties');
 $router->get('api/get-size-details', 'CustomerController@getSizeDetail');

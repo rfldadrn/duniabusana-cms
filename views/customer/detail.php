@@ -15,21 +15,21 @@
 		<div class="card-body">
 			<input type="text" class="form-control" id="Id" name="Id" value="<?= $customer['Id'] ?? '' ?>" hidden>
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Nama Pelanggan</label>
+				<label class="col-sm-2 col-form-label required-label">Nama Pelanggan</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="nama_pelanggan" name="Nama_pelanggan" placeholder="Nama pelanggan" required value="<?= $customer['Name'] ?? '' ?>">
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Nomor Telp</label>
+				<label class="col-sm-2 col-form-label required-label">Nomor Telp</label>
 				<div class="col-sm-6">
 					<input type="text" class="form-control" id="nomor_telp" name="Nomor_telp" placeholder="Nomor Telp" required value="<?= $customer['PhoneNumber'] ?? '' ?>">
 				</div>
 			</div>
 			
 			<div class="form-group row">
-				<label class="col-sm-2 col-form-label">Jenis Kelamin</label>
+				<label class="col-sm-2 col-form-label required-label">Jenis Kelamin</label>
 				<div class="col-sm-4">
 					<select name="Gender" id="gender" class="form-control" required>
 					<option value="">Pilih Jenis Kelamin</option>
@@ -38,6 +38,26 @@
 					</select>
 				</div>
 			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Instansi</label>
+				<div class="col-sm-4">
+					<select name="Instansi" id="instansi" class="select2bs4 w-100 form-control">
+					<option value="">Pilih Instansi</option>
+					<?php 
+						if($customer['AgencyId'] == null && $customer['Id'] != null) {
+							echo "<option value='' selected>Pribadi</option>";
+						}
+						foreach($agencies as $item) {
+							$selected = ($customer['AgencyId'] ?? '') == $item['Id'] ? 'selected' : '';
+							echo "<option value=\"{$item['Id']}\" $selected>{$item['Name']}</option>";
+						}
+					?>
+					</select>
+				</div>
+			</div>
+
+			
 			
 		</div>
 		<div class="card-footer">

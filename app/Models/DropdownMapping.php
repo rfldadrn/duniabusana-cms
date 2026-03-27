@@ -5,7 +5,7 @@ require_once __DIR__ . '/../Core/Model.php';
 class DropdownMapping extends Model {
 
     public function getAllAgencies() {
-        $result = $this->query("SELECT * FROM agencies WHERE rowstatus = 1");
+        $result = $this->query("SELECT * FROM agencies WHERE rowstatus = 1 ORDER BY Name DESC");
         return $this->fetchAll($result);
     }
     public function getPaymentMethods() {

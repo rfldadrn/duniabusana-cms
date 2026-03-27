@@ -51,10 +51,10 @@
 								<?php echo $data['AgencyName']; ?>
 							</td>
 							<td>
-								<?php echo $data['TransactionDate']; ?>
+								<?= MenuHelper::formatTanggal($data['TransactionDate']); ?>
 							</td>
 							<td>
-								<?php echo $data['CompletionDate']; ?>
+								<?= MenuHelper::formatTanggal($data['CompletionDate']); ?>
 							</td>
 							<td>
 								under construction

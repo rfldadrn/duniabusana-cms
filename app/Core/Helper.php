@@ -19,4 +19,8 @@ class MenuHelper {
     public static function bgColor(){
         return $colors = ['primary', 'success', 'warning', 'danger', 'info', 'secondary'];
     }
+
+    public static function formatTanggal($date){
+        return date('d-M-Y', strtotime($date));
+    }
 }
