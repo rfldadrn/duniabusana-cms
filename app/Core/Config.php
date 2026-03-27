@@ -1,6 +1,6 @@
 <?php
 
-define('BASE_URL', '');
+define('BASE_URL', '//');
 // define('ALTERNATE_BASE_URL', '/Template_App/new/public');
 define('ALTERNATE_BASE_URL', 
     isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
