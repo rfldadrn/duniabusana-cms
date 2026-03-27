@@ -1,16 +1,16 @@
 <?php
 
-define('BASE_URL', '/Template_App/new/public');
-define('ALTERNATE_BASE_URL', '/Template_App/new/public');
-// define('ALTERNATE_BASE_URL', 
-//     isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
-//         'https://' : 
-//         'http://' . $_SERVER['HTTP_HOST']);
+define('BASE_URL', '');
+// define('ALTERNATE_BASE_URL', '/Template_App/new/public');
+define('ALTERNATE_BASE_URL', 
+    isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
+        'https://' : 
+        'http://' . $_SERVER['HTTP_HOST']);
 define('BASE_PATH','/Template_App/new/public');
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_template');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+define('DB_USER', 'admindubus');
+define('DB_PASS', 'dubus1999');
 define('APP_NAME', 'Template Management Systems');
 define('APP_TITLE', 'Template Apps');
 define('APP_VERSION', '1.0.0');
