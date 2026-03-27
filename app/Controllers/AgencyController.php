@@ -75,6 +75,7 @@ class AgencyController extends Controller
     public function delete($id)
     {
         $this->agencyModel->delete($id);
+        $_SESSION['success'] = 'Instansi berhasil dihapus!';
         header('Location: ' . BASE_URL . '/agencies');
     }
 }
