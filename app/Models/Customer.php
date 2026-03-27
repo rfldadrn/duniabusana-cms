@@ -70,7 +70,7 @@ class Customer extends Model
         $size = $size;
         $rowstatus = 1;
 
-        $sql = "INSERT INTO itemSizeCustomer (itemSizeId, HeaderSizeCustomerId, size, rowstatus)
+        $sql = "INSERT INTO itemsizecustomer (itemSizeId, HeaderSizeCustomerId, size, rowstatus)
                 VALUES ('$itemSizeId', '$headerSizeCustomerId', '$size', '$rowstatus')";
 
         return $this->query($sql);
@@ -81,7 +81,7 @@ class Customer extends Model
         $size = (float)($this->escape($size));
         $updated_at = date('Y-m-d H:i:s');
 
-        $sql = "UPDATE itemSizeCustomer SET
+        $sql = "UPDATE itemsizecustomer SET
                 size='$size',
                 updatedBy='" . (int)$_SESSION['user']['id'] . "',
                 updated_at='$updated_at'
@@ -93,18 +93,18 @@ class Customer extends Model
         $headerSizeCustomerId = (int) $headerSizeCustomerId;
         // Set rowstatus=0 untuk header dan semua item size terkait
         $sqlHeader = "UPDATE headersizecustomer SET rowstatus=0 WHERE Id=$headerSizeCustomerId";
-        $sqlItems = "UPDATE itemSizeCustomer SET rowstatus=0 WHERE HeaderSizeCustomerId=$headerSizeCustomerId";
+        $sqlItems = "UPDATE itemsizecustomer SET rowstatus=0 WHERE HeaderSizeCustomerId=$headerSizeCustomerId";
         $this->query($sqlHeader);
         return $this->query($sqlItems);
     }
     public function deleteSize($headerSizeCustomerId){
         $headerSizeCustomerId = (int) $headerSizeCustomerId;
-        return $this->query("UPDATE itemSizeCustomer SET rowstatus=0 WHERE HeaderSizeCustomerId = '$headerSizeCustomerId' AND rowstatus = 1");
+        return $this->query("UPDATE itemsizecustomer SET rowstatus=0 WHERE HeaderSizeCustomerId = '$headerSizeCustomerId' AND rowstatus = 1");
     }
      public function getSizeById($id, $headerSizeCustomerId){
         $id = (int) $id;
         $headerSizeCustomerId = (int) $headerSizeCustomerId;
-        $sql = "SELECT * FROM itemSizeCustomer WHERE Id=$id AND HeaderSizeCustomerId = $headerSizeCustomerId AND rowstatus = 1";
+        $sql = "SELECT * FROM itemsizecustomer WHERE Id=$id AND HeaderSizeCustomerId = $headerSizeCustomerId AND rowstatus = 1";
         $result = $this->query($sql);
         return $this->fetch($result);
     }

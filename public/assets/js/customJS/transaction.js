@@ -79,7 +79,7 @@
 
         function renderItems() {
             const itemsList = document.getElementById('itemsList');
-            if (items.length === 0) {
+            if (items.length === 0 && itemsList !== null) {
                 itemsList.innerHTML = '<div class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size: 3rem;"></i><p class="mt-2">No items added yet</p></div>';
                 return;
             }
