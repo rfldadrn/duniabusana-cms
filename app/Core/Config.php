@@ -4,7 +4,7 @@ define('BASE_URL', '');
 define('ALTERNATE_BASE_URL', 
     isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 
         'https://' : 
-        'http://' . $_SERVER['HTTP_HOST'] . '/');
+        'http://' . $_SERVER['HTTP_HOST']);
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_template');
 define('DB_USER', 'admindubus');
