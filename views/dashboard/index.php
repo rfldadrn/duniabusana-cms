@@ -20,7 +20,7 @@
             <div class="icon">
               <i class="fa <?= $menu['MenuIcon'] ?>"></i>
             </div>
-            <a href="<?= BASE_URL . "/" . $menu['MenuUrl'] ?>" class="small-box-footer">
+            <a href="<?= ALTERNATE_BASE_URL . "/" . $menu['MenuUrl'] ?>" class="small-box-footer">
               Selengkapnya <i class="fas fa-arrow-circle-right"></i>
             </a>
           </div>
@@ -40,7 +40,7 @@
                   <div class="icon">
                     <i class="fa <?= $child['MenuIcon'] ?>"></i>
                   </div>
-                  <a href="<?= BASE_URL . "/" . $child['MenuUrl'] ?>" class="small-box-footer">
+                  <a href="<?= ALTERNATE_BASE_URL . "/" . $child['MenuUrl'] ?>" class="small-box-footer">
                     Selengkapnya <i class="fas fa-arrow-circle-right"></i>
                   </a>
                 </div>
