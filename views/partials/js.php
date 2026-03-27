@@ -31,7 +31,8 @@
 <script src="<?= BASE_URL ?>/assets/js/customJS/size.js"></script>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/customJS/transaction.js"></script>
 <script>
-    const BASE_URL = "<?php echo BASE_URL; ?>";
+    const BASE_URL = "<?php echo ALTERNATE_BASE_URL; ?>";
+    console.log("Base URL:", BASE_URL);
     if (typeof tinymce !== 'undefined' && document.getElementById('note-richtext')) {
         tinymce.init({
             selector: "#note-richtext",

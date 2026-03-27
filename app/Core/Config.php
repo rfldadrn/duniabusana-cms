@@ -1,6 +1,7 @@
 <?php
 
 define('BASE_URL', '');
+define('ALTERNATE_BASE_URL', $_SERVER['PHP_SELF']);
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'db_template');
 define('DB_USER', 'admindubus');
