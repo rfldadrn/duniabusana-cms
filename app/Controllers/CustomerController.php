@@ -4,6 +4,9 @@ require_once __DIR__ . '/../Models/Customer.php';
 require_once __DIR__ . '/../Core/Auth.php';
 require_once __DIR__ . '/../Models/Item.php';
 require_once __DIR__ . '/../Models/DropdownMapping.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class CustomerController extends Controller
 {
@@ -282,6 +285,161 @@ class CustomerController extends Controller
                 'success' => true,
                 'data' => [$sizes]
             ]);
+    }
+
+    public function importCustomers()
+    {
+        $data = array();
+        $agencyId = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $file_tmp = $_FILES['file']['tmp_name'];
+            $file_name = $_FILES['file']['name'];
+            $extension = pathinfo($file_name, PATHINFO_EXTENSION);
+            $agencyId = $_POST['agencyId'] ?? null;
+
+            $allowed_extensions = ['xls', 'xlsx'];
+            if (!in_array($extension, $allowed_extensions)) {
+                echo json_encode(['success' => false, 'message' => 'Format file harus .xls atau .xlsx']);
+                exit;
+            }
+
+            try {
+                // Load file excel
+                $spreadsheet = IOFactory::load($file_tmp);
+                $sheetData = $spreadsheet->getActiveSheet()->toArray();
+
+                //Validasi template
+                if (empty($sheetData) || count($sheetData[0]) < 3) {
+                    echo json_encode([
+                        'success' => false, 
+                        'message' => 'Format template salah. Pastikan file memiliki minimal 3 kolom (Nama, No Telp, Gender).'
+                    ]);
+                    exit;
+                }
+
+                // Hapus baris pertama jika itu adalah header kolom
+                array_shift($sheetData); 
+
+                $dataImport = [];
+                $errors = [];
+                $line = 2;
+                
+                foreach ($sheetData as $row) {
+                    $nama     = $row[0];
+                    $nomor_telp    = $row[1];
+                    $gender   = $row[2];
+                    
+                    if (empty($nama) || empty($nomor_telp) || empty($gender)) {
+                        $errors[] = "Baris $line: Semua field (Nama, Nomor Telepon, Jenis Kelamin) wajib diisi.";
+                    }
+
+                    if (!empty($nomor_telp) && !filter_var($nomor_telp, FILTER_VALIDATE_REGEXP, ['options' => ['regexp' => '/^\+?[0-9\s\-]+$/']])) {
+                        $errors[] = "Baris $line: Format nomor telepon tidak valid.";
+                    }
+
+                    if (!empty($gender) && !in_array(strtoupper($gender), ['L', 'P'])) {
+                        $errors[] = "Baris $line: Jenis kelamin harus 'L' untuk Laki-laki atau 'P' untuk Perempuan.";
+                    }
+
+                    $dataImport[] = [
+                        'nama'   => $nama,
+                        'nomor_telp'  => $nomor_telp,
+                        'gender' => $gender == 'L' ? 'Laki-laki' : ($gender == 'P' ? 'Perempuan' : $gender)
+                    ];
+                    $line++;
+                }
+                if(!empty($errors)){
+                    echo json_encode(['success' => false, 'message' => 'Terdapat error pada data yang diimport.', 'errors' => $errors]);
+                    exit;
+                }
+                // Simpan data ke database
+                foreach ($dataImport as $employee) {
+                    $existingCustomer = $this->customerModel->findByPhone($employee['nomor_telp']);
+                    if ($existingCustomer) {
+                        continue; // Lewati pelanggan yang sudah ada
+                    }
+
+                    $this->customerModel->create([
+                        'Nama_pelanggan' => $employee['nama'],
+                        'Nomor_telp' => $employee['nomor_telp'],
+                        'Gender' => $employee['gender'],
+                        'Instansi' => $agencyId,
+                    ]);
+                }
+            } catch (Exception $e) {
+                echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+            }
+            //response
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => true,
+                'message' => 'Data berhasil diimport!',
+                'data' => $data,
+                'error' => $errors
+                ]);
+        }else{
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => false,
+                'message' => 'Metode request tidak valid!',
+                'data' => $data
+                ]);
+        }
+        exit;
+    }
+
+    public function fetchEmployees()
+    {
+        $agencyId = isset($_GET['id']) ? (int) $_GET['id'] : null;
+        $employees = $this->customerModel->getEmployeesByAgencyId($agencyId);
+        if ($employees == null || count($employees) == 0) {
+            echo "<div class=\"text-center text-muted py-4\">
+                <i class=\"bi bi-inbox\" style=\"font-size: 3rem;\"></i>
+                <p class=\"mt-2\">No employees added yet</p>
+            </div>";
+        } else {
+            echo "<div class=\"overflow-auto\">
+                <table class=\"table table-bordered table-striped w-100\" id=\"example1\">
+                    <thead>
+                        <tr>
+                            <th>Nama Pegawai</th>
+                            <th>Nomor Telepon</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+                        foreach ($employees as $index => $emp) {
+                            echo "<tr>";
+                                echo "<td>" . htmlspecialchars($emp['Name']) . "</td>";
+                                echo "<td>" . htmlspecialchars($emp['PhoneNumber']) . "</td>";
+                                echo "<td>" . htmlspecialchars($emp['Gender']) . "</td>";
+                                echo "<td>
+                                    <div class=\"d-flex gap-2 justify-content-center\">
+                                        <button class=\"btn btn-sm btn-warning\" onclick=\"editEmployee(" . $emp['Id'] . ")\">
+                                            <i class=\"bi bi-pencil-square\"></i>
+                                        </button>
+                                        <button class=\"btn btn-sm btn-danger\" onclick=\"deleteEmployee(" . $emp['Id'] . ")\">
+                                            <i class=\"bi bi-trash\"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>";
+                        }
+                    echo "</tbody>
+                </table>
+            </div>";
+        }
+    }
+    public function getCustomerByAgencyId($id)
+    {
+        header('Content-Type: application/json');
+        $customers = $this->customerModel->getEmployeesByAgencyId($id);
+        echo json_encode([
+                'success' => true,
+                'data' => $customers
+            ]);
+            exit;
     }
 }
 

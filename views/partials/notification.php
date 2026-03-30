@@ -1,20 +1,18 @@
-<?php if (isset($_SESSION['success'])): ?>
-    <div class="toast-notif alert alert-success">
-        <i class="fas fa-check-circle mr-2"></i>
-        <?= $_SESSION['success']; unset($_SESSION['success']); ?>
-    </div>
-<?php endif; ?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if (isset($_SESSION['success'])): ?>
+            showMessage("<?= $_SESSION['success']; ?>", 'success');
+            <?php unset($_SESSION['success']); ?>
+        <?php endif; ?>
 
-<?php if (isset($_SESSION['error'])): ?>
-    <div class="toast-notif alert alert-danger">
-        <i class="fas fa-exclamation-circle mr-2"></i>
-        <?= $_SESSION['error']; unset($_SESSION['error']); ?>
-    </div>
-<?php endif; ?>
+        <?php if (isset($_SESSION['error'])): ?>
+            showMessage("<?= $_SESSION['error']; ?>", 'error');
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
 
-<?php if (isset($_SESSION['info'])): ?>
-    <div class="toast-notif alert alert-info">
-        <i class="fas fa-info-circle mr-2"></i>
-        <?= $_SESSION['info']; unset($_SESSION['info']); ?>
-    </div>
-<?php endif; ?>
+        <?php if (isset($_SESSION['info'])): ?>
+            showMessage("<?= $_SESSION['info']; ?>", 'info');
+            <?php unset($_SESSION['info']); ?>
+        <?php endif; ?>
+    });
+</script>

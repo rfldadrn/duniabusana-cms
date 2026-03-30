@@ -83,7 +83,7 @@
                 itemsList.innerHTML = '<div class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size: 3rem;"></i><p class="mt-2">No items added yet</p></div>';
                 return;
             }
-
+            if(itemsList === null) return;
             itemsList.innerHTML = items.map(item => `
                 <div class="item-row">
                     <div class="row align-items-center">
@@ -126,8 +126,11 @@
         }
 
         function updateSummary() {
+            const mainElement = document.getElementById('paidAmount');
+            if (!mainElement) return;
+
             const totalAmount = items.reduce((sum, item) => sum + item.price, 0);
-            const paidAmount = parseFloat(document.getElementById('paidAmount').value) || 0;
+            const paidAmount = parseFloat(mainElement.value) || 0;
             const balanceDue = totalAmount - paidAmount;
 
             document.getElementById('totalItems').textContent = items.length;
@@ -226,6 +229,23 @@
 
                 return acc;
             }, {});
+        }
+
+        function getCustomersByAgency(agencyId) {
+            agencyId = agencyId == '' ? null : agencyId;
+            document.getElementById('customerId').innerHTML = '<option value="">Pilih Pelanggan</option>';
+            fetch(`${BASE_URL}/api/get-customerByAgencyId/${agencyId}`)
+                .then(response => response.json())
+                .then(result => {
+                    let elementCustomerId = document.getElementById('customerId');
+                    elementCustomerId.innerHTML = '<option value="">Pilih Pelanggan</option>';
+                    result.data.forEach(customer => {
+                        const option = document.createElement('option');
+                        option.value = customer.Id;
+                        option.textContent = `${customer.Name} - ${customer.PhoneNumber}`;
+                        elementCustomerId.appendChild(option);
+                    });
+                });
         }
         // Initial render
         renderItems();

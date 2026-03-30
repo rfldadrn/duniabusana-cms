@@ -175,4 +175,15 @@ class Customer extends Model
         $result = $this->query($sql);
         return $this->fetchAll($result);
     }
+
+    public function getEmployeesByAgencyId($agencyId)
+    {
+        $agencyId = (int) ($agencyId ?? null);
+        $sql = "SELECT * FROM customers WHERE rowstatus = 1";
+        if ($agencyId > 0) {
+            $sql .= " AND agencyId = $agencyId";
+        }
+        $result = $this->query($sql);
+        return $this->fetchAll($result);
+    }
 }

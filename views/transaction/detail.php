@@ -31,23 +31,23 @@
 
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
+                                        <label class="form-label">Jenis Transaksi <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="agencyId" onchange="getCustomersByAgency(this.value)" required>
+                                            <option value="">Transaksi Pribadi</option>
+                                            <?php 
+                                                foreach($agencies as $agency) {
+                                                    echo "<option value=\"{$agency['Id']}\">{$agency['Name']}</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
                                         <label class="form-label">Nama Pelanggan <span class="text-danger">*</span></label>
                                         <select class="select2bs4 form-control w-100" id="customerId" onchange="getSizeCustomer(this.value)" required>
                                             <option value="">Pilih Pelanggan</option>
                                             <?php 
                                                 foreach($customers as $customer) {
                                                     echo "<option value=\"{$customer['Id']}\">{$customer['Name']} - {$customer['PhoneNumber']}</option>";
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label class="form-label">Jenis Transaksi <span class="text-danger">*</span></label>
-                                        <select class="form-select" id="agencyId">
-                                            <option value="">Transaksi Pribadi</option>
-                                            <?php 
-                                                foreach($agencies as $agency) {
-                                                    echo "<option value=\"{$agency['Id']}\">{$agency['Name']}</option>";
                                                 }
                                             ?>
                                         </select>

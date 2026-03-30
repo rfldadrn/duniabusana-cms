@@ -62,6 +62,7 @@
 		</div>
 		<div class="card-footer">
 			<a href="<?= BASE_URL ?>/customers" title="Kembali" class="btn btn-secondary float-right">Batal</a>
+			<a href="<?= BASE_URL ?>/agency/edit/<?= $customer['AgencyId'] ?? '' ?>" title="Kembali" class="btn btn-secondary float-right mr-2 <?= isset($customer['AgencyId']) && $customer['AgencyId'] !== null ? '' : 'd-none' ?>">Detail Instansi</a>
 			<?php 
 				if (!isset($customer['Id'])) {
 			?>	

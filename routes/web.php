@@ -47,10 +47,20 @@ $router->get('agency/edit/:id', 'AgencyController@edit');
 $router->post('agency/update', 'AgencyController@update');
 $router->get('agency/delete/:id', 'AgencyController@delete');
 
-//API - Transaction
+//Settings
+$router->get('commonfile', 'SettingsController@index');
+
+//API
+    //Transaction
 $router->get('api/get-size-properties', 'TransactionController@getSizeProperties');
 $router->get('api/get-size-details', 'CustomerController@getSizeDetail');
 $router->get('api/get-customerSizeByCustomerId/:customerId/:headerSizeId/:itemId', 'CustomerController@getAllSizes');
+
+    //Customer
+$router->post('api/importEmployee', 'CustomerController@importCustomers');
+$router->get('api/fetchEmployees', 'CustomerController@fetchEmployees');
+$router->get('api/get-customerByAgencyId/:id', 'CustomerController@getCustomerByAgencyId');
+
 
 //Dashboard
 $router->get('', 'DashboardController@index');

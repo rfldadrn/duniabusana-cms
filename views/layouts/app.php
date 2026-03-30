@@ -32,3 +32,7 @@
 <?php include __DIR__ . '/../partials/js.php'; ?>
 </body>
 </html>
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+</div>

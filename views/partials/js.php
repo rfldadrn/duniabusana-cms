@@ -29,6 +29,8 @@
 
 <script src="<?php echo BASE_URL; ?>/assets/js/customJS/common.js"></script>
 <script src="<?= BASE_URL ?>/assets/js/customJS/size.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/customJS/agency.js"></script>
+<script src="<?= BASE_URL ?>/assets/js/customJS/settings.js"></script>
 <script type="text/javascript" src="<?= BASE_URL ?>/assets/js/customJS/transaction.js"></script>
 <script>
     const BASE_URL = "<?php echo ALTERNATE_BASE_URL; ?>";

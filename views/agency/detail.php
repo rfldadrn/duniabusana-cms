@@ -81,8 +81,9 @@
 								<i class="bi bi-download"></i> Template
 							</a>
 						</div>
-					</div>	
-					<?php 
+					</div>
+					<div class="data-content">	
+						<?php 
 						if($employee == null || count($employee) == 0) {
 							?>
 							<div class="text-center text-muted py-4"><i class="bi bi-inbox" style="font-size: 3rem;"></i><p class="mt-2">No employees added yet</p></div>
@@ -107,9 +108,9 @@
 												<td><?= htmlspecialchars($emp['Gender']) ?></td>
 												<td>
 													<div class="d-flex gap-2 justify-content-center">
-														<button class="btn btn-sm btn-warning" onclick="editEmployee(<?= $emp['Id'] ?>)">
+														<a class="btn btn-sm btn-warning" href="<?= BASE_URL . '/customer/edit/' . $emp['Id'] ?>">
 															<i class="bi bi-pencil-square"></i>
-														</button>
+														</a>
 														<button class="btn btn-sm btn-danger" onclick="deleteEmployee(<?= $emp['Id'] ?>)">
 															<i class="bi bi-trash"></i>
 														</button>
@@ -122,7 +123,8 @@
 							</div>
 						<?php
 							}
-						?>
+						?>						
+					</div>
 				</div>
 			</div>
 		</div>

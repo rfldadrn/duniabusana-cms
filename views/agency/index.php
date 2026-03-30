@@ -40,7 +40,7 @@
 								<?= $no++; ?>
 							</td>
 							<td>
-								<a class="text-decoration-none" href="<?= BASE_URL ?>/agency/detail/<?= $data['Id']; ?>"><?= $data['Name']; ?></a>
+								<a class="text-decoration-none" href="<?= BASE_URL ?>/agency/edit/<?= $data['Id']; ?>"><?= $data['Name']; ?></a>
 							</td>
 							<td>
 								<?= $data['Description']; ?>
